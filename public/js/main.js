@@ -125,15 +125,13 @@ const togglePopup = function () {
 togglePopup();
 
 let date = new Date();
-const aa = [];
-//글 로컬스토리지 받기
-const wri = JSON.parse(localStorage.getItem('글'));
-const saveData = localStorage.setItem('저장데이터', JSON.stringify(wri));
-const getData=localStorage.getItem('저장데이터')
-aa.push(getData)
-console.log(aa)
+let aa = [];
 
-// const getData = JSON.parse(localStorage.getItem('저장데이터'));
+const wri = localStorage.getItem('글');
+const saveDate = JSON.parse(wri);
+aa.push(saveDate)
+aa = saveDate;
+
 const notiWrite = document.querySelector('.notice_box ul');
 for (let i = 0; i < aa.length; i++) {
   const Li = document.createElement('li');
@@ -152,20 +150,16 @@ for (let i = 0; i < aa.length; i++) {
 </div>
   `
   notiWrite.appendChild(Li)
-  /* notiWrite.innerHTML = `
-    <li>
-      <div>
-        <span>${i+1}</span>
-      </div>
-      <div class='tit'>
-        ${wri[i]}
-      </div>
-      <div class='cont'>
-        ${cont[1]}
-      </div>
-      <div>
-        ${date.getFullYear()+ ' - '+ (date.getMonth()+1)+' - '+date.getDate()}
-      </div>
-    </li>
-  ` */
+
 }
+const save = localStorage.setItem('저장용', JSON.stringify(aa));
+
+//글 로컬스토리지 받기
+
+/* const saveData = localStorage.setItem('저장데이터',aa);
+const getData = JSON.parse(localStorage.getItem('저장데이터')); */
+// console.log(getData)
+// aa.push(wri)
+// console.log(aa)
+
+// const getData = JSON.parse(localStorage.getItem('저장데이터'));
