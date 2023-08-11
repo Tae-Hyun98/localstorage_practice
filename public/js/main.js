@@ -124,13 +124,17 @@ const togglePopup = function () {
 
 togglePopup();
 
+
 let date = new Date();
 let aa = [];
+let ab = [];
 
 const wri = localStorage.getItem('글');
 const saveDate = JSON.parse(wri);
 aa.push(saveDate)
-aa = saveDate;
+ab = saveDate;
+console.log(ab)
+localStorage.setItem('ab', JSON.stringify(ab))
 
 const notiWrite = document.querySelector('.notice_box ul');
 for (let i = 0; i < aa.length; i++) {
@@ -152,7 +156,7 @@ for (let i = 0; i < aa.length; i++) {
   notiWrite.appendChild(Li)
 
 }
-const save = localStorage.setItem('저장용', JSON.stringify(aa));
+const save = localStorage.setItem('저장용', JSON.stringify(ab));
 
 //글 로컬스토리지 받기
 

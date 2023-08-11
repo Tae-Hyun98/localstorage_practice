@@ -8,23 +8,24 @@ function cancle() {
 cancle();
 
 //등록버튼
+
+
 function register() {
   const regiBtn = document.querySelector('.register');
   const title = document.getElementById('title');
   const content = document.getElementById('content');
-  let obj = [];
 
   regiBtn.addEventListener('click', () => {
     //입력된 글
-    const Title = title.value;
-    const Content = content.value;
+    const valueItem = {
+      title: title.value,
+      content: content.value
+    };
 
-    obj.push({
-      title: Title,
-      content: Content
-    })
-
-    localStorage.setItem('글', JSON.stringify(obj));
+    localStorage.setItem('글', JSON.stringify(valueItem));
+    
+    title.value='';
+    content.value='';
 
     //json형태로 내보내기
     // localStorage.setItem('저장', JSON.stringify(obj));
