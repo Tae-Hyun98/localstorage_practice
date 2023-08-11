@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./css/common.css">
+  <link rel="stylesheet" href="./css/main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css"/>
+
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+  <script src="./js/main.js" defer></script>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <header id="header"></header>
+
+    <nav class="lnb">
+      <ul>
+        <li><a href="#!">테스트1</a></li>
+        <li><a href="#!">테스트2</a></li>
+        <li><a href="#!">테스트3</a></li>
+        <li><a href="#!">테스트4</a></li>
+      </ul>
+    </nav>
+
+    <div class="container">
+      <div class="notice">
+        <div class="notice_tit">
+          <ul>
+            <li>No</li>
+            <li>제목</li>
+            <li>내용</li>
+            <li>날짜</li>
+            <li>조회수</li>
+          </ul>
+        </div>
+
+        <div class="notice_box">
+          <ul></ul>
+        </div>
+
+        <div class="writing">
+          <a href="./notice_write.html">글쓰기</a>
+        </div>
+      </div>
+
+      <div class="box">
+        <div class="box1">
+          <div class="box2"></div>
+        </div>
+      </div>
+
+      <div class="popupbox">
+        <div class="tab">
+          <a href="#!" class="on" data-tab="tab1">tab1</a>
+          <a href="#!" data-tab="tab2">tab2</a>
+        </div>
+
+        <div class="img_box">
+          <div class="tab_img1 on" id="tab1">
+            <img src="./genesis.png" alt="img">
+          </div>
+
+          <div class="tab_img2" id="tab2">
+            <img src="./KakaoTalk_20230512_193251188.jpg" alt="">
+          </div>
+        </div>
+
+        <div class="close_box">
+          <button id="tomorrow">tomorrow close</button>
+          <button id="close">close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.onload = function () {
+      $('#header').load('./header.html');
+    }
+  </script>
+</body>
+
+</html>

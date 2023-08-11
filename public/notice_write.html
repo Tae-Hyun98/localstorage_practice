@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./css/common.css">
+  <link rel="stylesheet" href="./css/notice_write.css">
+
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+  <script src="./js/write.js" defer></script>
+</head>
+
+<body>
+  <header id="header"></header>
+
+  <div class="write_box">
+    <ul>
+      <li>
+        <label for="title">제목</label>
+        <input id="title" type="text" placeholder="제목을 입력해주세요.">
+      </li>
+
+      <li class="content_area">
+        <label for="content">내용</label>
+        <textarea id="content" placeholder="내용을 입력해주세요."></textarea>
+      </li>
+    </ul>
+
+    <div class="btn_box">
+      <button class="register">등록하기</button>
+      <button class="cancle">취소하기</button>
+    </div>
+  </div>
+</body>
+<script>
+  window.onload = function () {
+    $('#header').load('./header.html');
+  }
+</script>
+
+</html>

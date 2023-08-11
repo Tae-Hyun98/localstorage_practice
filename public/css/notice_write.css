@@ -1,0 +1,39 @@
+.write_box {
+  width: 650px;
+  margin: 0 auto;
+  border: 1px solid #000;
+  margin-top: 100px;
+  padding: 20px;
+}
+
+.write_box ul li {
+  padding: 15px 0;
+}
+
+.write_box ul li input {
+  display: block;
+  width: 50%;
+  height: 30px;
+  margin-top: 5px;
+  padding-left: 10px;
+}
+
+.write_box ul li.content_area textarea {
+  width: 100%;
+  height: 120px;
+  margin: 0 auto;
+  margin-top: 5px;
+  padding: 10px 0 0 10px;
+  outline: none;
+  resize: none;
+}
+
+.btn_box {}
+
+.btn_box button {
+  width: calc(50% - 3px);
+  line-height: 35px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  background-color: #ccc;
+}
