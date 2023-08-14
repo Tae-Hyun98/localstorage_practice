@@ -69,7 +69,62 @@
 .writing a {
   border: 1px solid #777;
   padding: 5px 10px;
+}
 
+.writing_popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1;
+}
+
+.writing_popup .popup {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 400px;
+  background-color: #fff;
+  padding: 20px 50px;
+}
+
+.tit_inp {
+  margin: 15px 0;
+}
+
+.tit_inp label {
+  margin-right: 5px;
+}
+
+.popup input,
+.popup textarea {
+  padding-left: 10px;
+  border: 1px solid #ccc;
+  resize: none;
+}
+
+.popup input {
+  height: 25px;
+}
+
+.popup textarea {
+  width: 100%;
+  margin-top: 10px;
+  padding-top: 10px;
+}
+
+.btn_box {
+  margin-top: 30px;
+}
+
+.btn_box button {
+  background-color: #ccc;
+  border: 1px solid #777;
 }
 
 .box {

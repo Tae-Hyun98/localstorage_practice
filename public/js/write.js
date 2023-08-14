@@ -10,12 +10,15 @@ cancle();
 //등록버튼
 
 
+let arr = [];
+
 function register() {
   const regiBtn = document.querySelector('.register');
   const title = document.getElementById('title');
   const content = document.getElementById('content');
 
-  regiBtn.addEventListener('click', () => {
+  regiBtn.addEventListener('click', (e) => {
+    e.preventDefault();
     //입력된 글
     const valueItem = {
       title: title.value,
@@ -23,9 +26,19 @@ function register() {
     };
 
     localStorage.setItem('글', JSON.stringify(valueItem));
-    
-    title.value='';
-    content.value='';
+
+    let getData = localStorage.getItem('글');
+
+    if (getData != null) {
+      let data = JSON.parse(getData); // 배열로 예쁘게 바꿔줌
+      data.push(data)
+      localStorage.setItem('글', JSON.stringify(data));
+    } else {
+      localStorage.setItem('글', JSON.stringify([valueItem]));
+    }
+
+    title.value = '';
+    content.value = '';
 
     //json형태로 내보내기
     // localStorage.setItem('저장', JSON.stringify(obj));

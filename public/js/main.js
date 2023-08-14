@@ -125,45 +125,64 @@ const togglePopup = function () {
 togglePopup();
 
 
-let date = new Date();
-let aa = [];
-let ab = [];
+const writing = document.querySelector('.writing a');
+const wriPopup = document.querySelector('.writing_popup');
+const resiger = document.getElementById('register');
+const cancle = document.getElementById('cancle');
 
-const wri = localStorage.getItem('글');
-const saveDate = JSON.parse(wri);
-aa.push(saveDate)
-ab = saveDate;
-console.log(ab)
-localStorage.setItem('ab', JSON.stringify(ab))
+writing.addEventListener('click', () => {
+  wriPopup.style.display = 'block'
+})
+cancle.addEventListener('click', function () {
+  wriPopup.style.display = 'none'
+})
 
-const notiWrite = document.querySelector('.notice_box ul');
-for (let i = 0; i < aa.length; i++) {
-  const Li = document.createElement('li');
-  Li.innerHTML = `
-  <div>
-  <span>${i+1}</span>
-</div>
-<div class='tit'>
-  ${aa[i].title}
-</div>
-<div class='cont'>
-  ${aa[i].content}
-</div>
-<div>
-  ${date.getFullYear()+ '-'+ (date.getMonth()+1)+'-'+date.getDate()}
-</div>
-  `
-  notiWrite.appendChild(Li)
+const title = document.querySelector('.tit_inp input');
+const content = document.querySelector('.cont_inp textarea');
 
+resiger.addEventListener('click', (e) => {
+  e.preventDefault();
+
+  const valueCont = {
+    title: title.value,
+    content: content.value
+  }
+
+  const posts = JSON.parse(localStorage.getItem('value')) || [];
+  posts.push(valueCont)
+
+  localStorage.setItem('value', JSON.stringify(posts));
+
+  renderPost();
+
+  title.value = '';
+  content.value = '';
+})
+
+function renderPost() {
+  let date = new Date();
+  const notiWrite = document.querySelector('.notice_box ul');
+  notiWrite.innerHTML = '';
+  const posts = JSON.parse(localStorage.getItem('value')) || [];
+
+  posts.forEach((item, idx) => {
+    const Li = document.createElement('li');
+    Li.innerHTML = `
+    <div>
+      <span>${idx+1}</span>
+    </div>
+    <div class='tit'>
+      ${item.title}
+    </div>
+    <div class='cont'>
+      ${item.content}
+    </div>
+    <div>
+      ${date.getFullYear()+ '-'+ (date.getMonth()+1)+'-'+date.getDate()}
+    </div>
+    `
+    notiWrite.appendChild(Li);
+  })
 }
-const save = localStorage.setItem('저장용', JSON.stringify(ab));
 
-//글 로컬스토리지 받기
-
-/* const saveData = localStorage.setItem('저장데이터',aa);
-const getData = JSON.parse(localStorage.getItem('저장데이터')); */
-// console.log(getData)
-// aa.push(wri)
-// console.log(aa)
-
-// const getData = JSON.parse(localStorage.getItem('저장데이터'));
+renderPost();
