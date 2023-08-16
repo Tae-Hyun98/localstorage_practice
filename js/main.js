@@ -158,11 +158,28 @@ function renderPost() {
 
 renderPost();
 
+
+
+//카카오 로그인
+
 function loginWithKakao() {
   Kakao.Auth.authorize({
     //로그인성공시 리다이렉션uri
     redirectUri: 'http://127.0.0.1:5500/index.html',
   });
+  Kakao.Auth.login({
+    scope: 'profile_nickname, profile_image, gender, age_range, birthday',
+    success: function (authObj) {
+      console.log(authObj);
+      Kakao.API.request({
+        url: '/v2/user/me',
+        success: res => {
+          const kakao_account = res.kakao_account;
+          console.log(kakao_account)
+        }
+      })
+    }
+  })
 }
 
 function logoutWithKakao() {
@@ -187,7 +204,7 @@ function deleteCookie() {
 displayToken()
 
 function displayToken() {
-  const token = Kakao.Auth.getAccessToken();
+  let token = Kakao.Auth.getAccessToken();
   if (token) {
     Kakao.Auth.setAccessToken(token);
     Kakao.Auth.getStatusInfo()
