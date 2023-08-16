@@ -7,11 +7,8 @@ function cancle() {
 }
 cancle();
 
+
 //등록버튼
-
-
-let arr = [];
-
 function register() {
   const regiBtn = document.querySelector('.register');
   const title = document.getElementById('title');
@@ -25,26 +22,17 @@ function register() {
       content: content.value
     };
 
-    localStorage.setItem('글', JSON.stringify(valueItem));
+    const posts = JSON.parse(localStorage.getItem('value')) || [];
+    posts.unshift(valueItem)
 
-    let getData = localStorage.getItem('글');
-
-    if (getData != null) {
-      let data = JSON.parse(getData); // 배열로 예쁘게 바꿔줌
-      data.push(data)
-      localStorage.setItem('글', JSON.stringify(data));
-    } else {
-      localStorage.setItem('글', JSON.stringify([valueItem]));
-    }
+    localStorage.setItem('value', JSON.stringify(posts));
 
     title.value = '';
     content.value = '';
 
     //json형태로 내보내기
-    // localStorage.setItem('저장', JSON.stringify(obj));
-
-    // alert('게시글이 등록되었습니다.')
-    // location.href = 'index.html'
+    alert('게시글이 등록되었습니다.')
+    location.href = 'index.html'
   })
 
 }

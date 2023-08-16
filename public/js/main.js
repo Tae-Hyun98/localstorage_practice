@@ -125,58 +125,31 @@ const togglePopup = function () {
 togglePopup();
 
 
-const writing = document.querySelector('.writing a');
-const wriPopup = document.querySelector('.writing_popup');
-const resiger = document.getElementById('register');
-const cancle = document.getElementById('cancle');
 
-writing.addEventListener('click', () => {
-  wriPopup.style.display = 'block'
-})
-cancle.addEventListener('click', function () {
-  wriPopup.style.display = 'none'
-})
-
-const title = document.querySelector('.tit_inp input');
-const content = document.querySelector('.cont_inp textarea');
-
-resiger.addEventListener('click', (e) => {
-  e.preventDefault();
-
-  const valueCont = {
-    title: title.value,
-    content: content.value
-  }
-
-  const posts = JSON.parse(localStorage.getItem('value')) || [];
-  posts.push(valueCont)
-
-  localStorage.setItem('value', JSON.stringify(posts));
-
-  renderPost();
-
-  title.value = '';
-  content.value = '';
-})
-
+//로컬스토리지 받은값을 DOM엘리먼트에 추가
 function renderPost() {
   let date = new Date();
   const notiWrite = document.querySelector('.notice_box ul');
   notiWrite.innerHTML = '';
+
+  //value로컬스토리지 받아와서 parse후 있으면 posts변수에 저장 아니면 []값
   const posts = JSON.parse(localStorage.getItem('value')) || [];
 
   posts.forEach((item, idx) => {
     const Li = document.createElement('li');
     Li.innerHTML = `
     <div>
-      <span>${idx+1}</span>
+      <span>${posts.length - idx}</span>
     </div>
+
     <div class='tit'>
       ${item.title}
     </div>
+
     <div class='cont'>
       ${item.content}
     </div>
+    
     <div>
       ${date.getFullYear()+ '-'+ (date.getMonth()+1)+'-'+date.getDate()}
     </div>
