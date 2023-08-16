@@ -170,7 +170,6 @@ displayToken()
 
 function displayToken() {
   var token = getCookie('authorize-access-token');
-
   if (token) {
     Kakao.Auth.setAccessToken(token);
     Kakao.Auth.getStatusInfo()
@@ -183,6 +182,8 @@ function displayToken() {
         Kakao.Auth.setAccessToken(null);
       });
   }
+  console.log(Kakao.Auth.getAccessToken())
+
 }
 
 function getCookie(name) {
