@@ -160,7 +160,8 @@ renderPost();
 
 function loginWithKakao() {
   Kakao.Auth.authorize({
-    redirectUri: 'https://inquisitive-moonbeam-aabe53.netlify.app',
+    //로그인성공시 리다이렉션uri
+    redirectUri: 'https://openlogintest.netlify.app',
   });
 }
 
