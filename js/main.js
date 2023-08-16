@@ -161,15 +161,33 @@ renderPost();
 function loginWithKakao() {
   Kakao.Auth.authorize({
     //로그인성공시 리다이렉션uri
-    redirectUri: 'https://tae-hyun98.github.io/localstorage_practice/',
+    redirectUri: 'http://127.0.0.1:5500/index.html',
   });
 }
+
+function logoutWithKakao() {
+  Kakao.Auth.logout({
+      redirectUri: 'http://127.0.0.1:5500/index.html'
+    })
+    .then(function () {
+      alert('logout ok\naccess token -> ' + Kakao.Auth.getAccessToken());
+      deleteCookie();
+    })
+    .catch(function () {
+      alert('Not logged in');
+    });
+}
+
+function deleteCookie() {
+  document.cookie = 'authorize-access-token=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
+
 
 // 아래는 데모를 위한 UI 코드입니다.
 displayToken()
 
 function displayToken() {
-  var token = getCookie('authorize-access-token');
+  const token = Kakao.Auth.getAccessToken();
   if (token) {
     Kakao.Auth.setAccessToken(token);
     Kakao.Auth.getStatusInfo()
@@ -182,7 +200,6 @@ function displayToken() {
         Kakao.Auth.setAccessToken(null);
       });
   }
-  console.log(Kakao.Auth.getAccessToken())
 
 }
 
