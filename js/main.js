@@ -161,7 +161,7 @@ renderPost();
 function loginWithKakao() {
   Kakao.Auth.authorize({
     //로그인성공시 리다이렉션uri
-    redirectUri: 'https://openlogintest.netlify.app/',
+    redirectUri: 'https://tae-hyun98.github.io/localstorage_practice/',
   });
 }
 
