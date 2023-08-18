@@ -10,12 +10,14 @@
   <link rel="stylesheet" href="./css/main.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" />
 
-  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-  <script src="./js/main.js" defer></script>
-
   <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.3.0/kakao.min.js"
     integrity="sha384-70k0rrouSYPWJt7q9rSTKpiTfX6USlMYjZUtr1Du+9o4cGvhPAWxngdtVZDdErlh" crossorigin="anonymous">
   </script>
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+  <script src="./js/main.js" defer></script>
+  <script src="./js/kakao.js" defer></script>
+
+
 
 </head>
 
@@ -41,9 +43,10 @@
           <a id="kakao-login-btn" href="javascript:loginWithKakao()" style="visibility: visible;">
             <img src="./img/kakao_login_medium_narrow.png" width="222" alt="카카오 로그인 버튼" />
           </a>
-          <p id="token-result"></p>
         </div>
-        <p><a href="javascript:logoutWithKakao()">로그아웃</a></p>
+
+        <button class="logout" style="display: none;" onclick="logoutWithKakao()">로그아웃</button>
+        <p class="token-result"></p>
 
         <button class="api-btn" onclick="requestUserInfo()" style="visibility:hidden">사용자 정보 가져오기</button>
       </div>

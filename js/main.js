@@ -162,62 +162,13 @@ renderPost();
 
 //카카오 로그인
 
-window.Kakao.init('2ddea2b753ef482cbb3d98c01e207468');
-console.log(Kakao.isInitialized());
 
-function loginWithKakao() {
-  Kakao.Auth.authorize({
-    redirectUri: 'http://127.0.0.1:5500/index.html',
-    state: 'userme',
-  });
-}
 
-function requestUserInfo() {
-  Kakao.API.request({
-      url: '/v2/user/me',
-    })
-    .then(function (res) {
-      alert(JSON.stringify(res));
-    })
-    .catch(function (err) {
-      alert(
-        'failed to request user information: ' + JSON.stringify(err)
-      );
-    });
-}
 
-// 아래는 데모를 위한 UI 코드입니다.
-displayToken()
-
-function displayToken() {
-  const token = getCookie('authorize-access-token');
-  if(token) {
-    Kakao.Auth.setAccessToken(token);
-    Kakao.Auth.getStatusInfo()
-      .then(function(res) {
-        if (res.status === 'connected') {
-          document.getElementById('token-result').innerText
-            = 'login success, token: ' + Kakao.Auth.getAccessToken();
-        }
-      })
-      .catch(function(err) {
-        Kakao.Auth.setAccessToken(null);
-      });
-  }
-}
-
-function getCookie(name) {
-  const parts = document.cookie.split(name + '=');
-  if (parts.length === 2) {
-    return parts[1].split(';')[0];
-  }
-}
 
 
 function logoutWithKakao() {
-  Kakao.Auth.logout({
-      // redirectUri: 'http://127.0.0.1:5500/index.html'
-    })
+  Kakao.Auth.logout()
     .then(function () {
       alert('로그아웃되었습니다 \n access token -> ' + Kakao.Auth.getAccessToken());
       deleteCookie();
@@ -227,6 +178,7 @@ function logoutWithKakao() {
       alert('로그인되어 있지 않습니다.');
       document.getElementById('kakao-login-btn').style.visibility = 'visible';
     });
+
 }
 
 function deleteCookie() {
@@ -244,7 +196,7 @@ $.ajax({
     client_id: '73b344e027790c81033aa3a2801a1e84',
     //redirect uri입력
     redirect_uri: 'http://127.0.0.1:5500/index.html',
-    code: 'Qyyr5UGvYF4uHycnSENF79VKg-P5j9RHUSuPmLEBtp_9NPn1uGMIl20DNPZcUrjs-8VfWgo9dRkAAAGKB88Z4Q'
+    code: 'D3MJi6VGS_mEu0IDQJThZG6cYX1eEsRX6ZqfW7v-FW2SrdSHRO-8ZKXD0cM9GV2F21yQvAorDR4AAAGKCVWLvw'
   },
 
   dataType: null,
@@ -252,6 +204,8 @@ $.ajax({
     Kakao.Auth.setAccessToken(response.access_token);
     document.querySelector('button.api-btn').style.visibility = 'visible';
     document.getElementById('kakao-login-btn').style.visibility = 'hidden';
+    document.querySelector('.token-result').innerText = 'login success, token: ' + Kakao.Auth.getAccessToken();
+    document.querySelector('.logout').style.display = 'block';
 
   },
   error: function (jqXHR, error) {
