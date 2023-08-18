@@ -162,36 +162,70 @@ renderPost();
 
 //카카오 로그인
 
+window.Kakao.init('2ddea2b753ef482cbb3d98c01e207468');
+console.log(Kakao.isInitialized());
+
 function loginWithKakao() {
   Kakao.Auth.authorize({
-    //로그인성공시 리다이렉션uri
     redirectUri: 'http://127.0.0.1:5500/index.html',
+    state: 'userme',
   });
-  Kakao.Auth.login({
-    scope: 'profile_nickname, profile_image, gender, age_range, birthday',
-    success: function (authObj) {
-      console.log(authObj);
-      Kakao.API.request({
-        url: '/v2/user/me',
-        success: res => {
-          const kakao_account = res.kakao_account;
-          console.log(kakao_account)
+}
+
+function requestUserInfo() {
+  Kakao.API.request({
+      url: '/v2/user/me',
+    })
+    .then(function (res) {
+      alert(JSON.stringify(res));
+    })
+    .catch(function (err) {
+      alert(
+        'failed to request user information: ' + JSON.stringify(err)
+      );
+    });
+}
+
+// 아래는 데모를 위한 UI 코드입니다.
+displayToken()
+
+function displayToken() {
+  const token = getCookie('authorize-access-token');
+  if(token) {
+    Kakao.Auth.setAccessToken(token);
+    Kakao.Auth.getStatusInfo()
+      .then(function(res) {
+        if (res.status === 'connected') {
+          document.getElementById('token-result').innerText
+            = 'login success, token: ' + Kakao.Auth.getAccessToken();
         }
       })
-    }
-  })
+      .catch(function(err) {
+        Kakao.Auth.setAccessToken(null);
+      });
+  }
 }
+
+function getCookie(name) {
+  const parts = document.cookie.split(name + '=');
+  if (parts.length === 2) {
+    return parts[1].split(';')[0];
+  }
+}
+
 
 function logoutWithKakao() {
   Kakao.Auth.logout({
-      redirectUri: 'http://127.0.0.1:5500/index.html'
+      // redirectUri: 'http://127.0.0.1:5500/index.html'
     })
     .then(function () {
-      alert('logout ok\naccess token -> ' + Kakao.Auth.getAccessToken());
+      alert('로그아웃되었습니다 \n access token -> ' + Kakao.Auth.getAccessToken());
       deleteCookie();
+      document.getElementById('kakao-login-btn').style.visibility = 'visible';
     })
     .catch(function () {
-      alert('Not logged in');
+      alert('로그인되어 있지 않습니다.');
+      document.getElementById('kakao-login-btn').style.visibility = 'visible';
     });
 }
 
@@ -200,29 +234,27 @@ function deleteCookie() {
 }
 
 
-// 아래는 데모를 위한 UI 코드입니다.
-displayToken()
+$.ajax({
+  type: "POST",
+  url: 'https://kauth.kakao.com/oauth/token',
+  contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+  data: {
+    grant_type: 'authorization_code',
+    //REST API키 입력
+    client_id: '73b344e027790c81033aa3a2801a1e84',
+    //redirect uri입력
+    redirect_uri: 'http://127.0.0.1:5500/index.html',
+    code: 'Qyyr5UGvYF4uHycnSENF79VKg-P5j9RHUSuPmLEBtp_9NPn1uGMIl20DNPZcUrjs-8VfWgo9dRkAAAGKB88Z4Q'
+  },
 
-function displayToken() {
-  let token = Kakao.Auth.getAccessToken();
-  if (token) {
-    Kakao.Auth.setAccessToken(token);
-    Kakao.Auth.getStatusInfo()
-      .then(function (res) {
-        if (res.status === 'connected') {
-          document.getElementById('token-result').innerText = 'login success, token: ' + Kakao.Auth.getAccessToken();
-        }
-      })
-      .catch(function (err) {
-        Kakao.Auth.setAccessToken(null);
-      });
+  dataType: null,
+  success: function (response) {
+    Kakao.Auth.setAccessToken(response.access_token);
+    document.querySelector('button.api-btn').style.visibility = 'visible';
+    document.getElementById('kakao-login-btn').style.visibility = 'hidden';
+
+  },
+  error: function (jqXHR, error) {
+
   }
-
-}
-
-function getCookie(name) {
-  var parts = document.cookie.split(name + '=');
-  if (parts.length === 2) {
-    return parts[1].split(';')[0];
-  }
-}
+});
