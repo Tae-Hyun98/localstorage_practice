@@ -186,7 +186,7 @@ function deleteCookie() {
 }
 
 
-$.ajax({
+/* $.ajax({
   type: "POST",
   url: 'https://kauth.kakao.com/oauth/token',
   contentType: 'application/x-www-form-urlencoded;charset=utf-8',
@@ -211,4 +211,4 @@ $.ajax({
   error: function (jqXHR, error) {
 
   }
-});
+}); */
