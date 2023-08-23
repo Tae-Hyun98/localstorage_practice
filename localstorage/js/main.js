@@ -129,7 +129,6 @@ togglePopup();
 function renderPost() {
   const counting = document.querySelector('.counting');
   const notiWrite = document.querySelector('.notice_box ul');
-  const noticeLi=document.querySelectorAll('.notice_box ul li');
   notiWrite.innerHTML = '';
 
   //value로컬스토리지 받아와서 값이 있으면 posts변수에 저장 아니면 []값
@@ -164,6 +163,10 @@ function renderPost() {
       /* location.href = 'post_detail.html'; */
     })
 
+    counting.innerHTML = `
+    총 게시글수 : ${posts.length}
+  `
+
     //삭제버튼클릭
     const remove = document.querySelectorAll('.remove_box span');
     remove.forEach((value, index) => {
@@ -173,9 +176,7 @@ function renderPost() {
     })
   })
 
-  counting.innerHTML = `
-      총 게시글수 : ${noticeLi.length}
-    `
+
 }
 
 renderPost();
