@@ -124,13 +124,15 @@ togglePopup();
 
 
 
+
 //로컬스토리지 받은값을 DOM엘리먼트에 추가
 function renderPost() {
-  let date = new Date();
+  const counting = document.querySelector('.counting');
   const notiWrite = document.querySelector('.notice_box ul');
+  const noticeLi=document.querySelectorAll('.notice_box ul li');
   notiWrite.innerHTML = '';
 
-  //value로컬스토리지 받아와서 parse후 있으면 posts변수에 저장 아니면 []값
+  //value로컬스토리지 받아와서 값이 있으면 posts변수에 저장 아니면 []값
   const posts = JSON.parse(localStorage.getItem('value')) || [];
 
   posts.forEach((item, idx) => {
@@ -149,17 +151,53 @@ function renderPost() {
     </div>
     
     <div>
-      ${date.getFullYear()+ '-'+ (date.getMonth()+1)+'-'+date.getDate()}
+      ${item.date1}
+    </div>
+
+    <div class='remove_box'>
+      <span class='remove${idx}'>X</span>
     </div>
     `
+
     notiWrite.appendChild(Li);
+    Li.addEventListener('click', () => {
+      /* location.href = 'post_detail.html'; */
+    })
+
+    //삭제버튼클릭
+    const remove = document.querySelectorAll('.remove_box span');
+    remove.forEach((value, index) => {
+      value.addEventListener('click', () => {
+        remove[index].parentNode.parentNode.remove();
+      })
+    })
   })
+
+  counting.innerHTML = `
+      총 게시글수 : ${noticeLi.length}
+    `
 }
 
 renderPost();
 
+const clear = document.getElementById('clear');
+if (localStorage.getItem('value') !== null && localStorage.getItem('value') !== undefined) {
+  clear.classList.add('on');
+}
 
-
+function clearClick() {
+  clear.addEventListener('click', () => {
+    //전체삭제버튼 클릭시 localstorage에 값이 없으면 click이벤트없앰 있으면 삭제시키고 새로고침
+    if (localStorage.getItem('value') === null || localStorage.getItem('value') === undefined) {
+      clear.removeEventListener('click')
+    } else {
+      localStorage.clear('value');
+      alert('전체삭제되었습니다.');
+      location.reload();
+    }
+  })
+}
+clearClick();
 //카카오 로그인
 
 

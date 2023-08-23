@@ -73,6 +73,7 @@
   display: flex;
   padding: 10px 0;
   border-bottom: 1px solid #ccc;
+  cursor: pointer;
 }
 
 .notice_box ul li div {
@@ -80,13 +81,43 @@
   text-align: center;
 }
 
+.clear_box {
+  text-align: right;
+}
+
+.clear_box button {
+  color: #eee;
+  background-color: #ccc;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.clear_box button.on:hover {
+  background-color: blue;
+  color: #fff;
+}
+
+.remove_box {
+  cursor: default;
+}
+
+.remove_box span{
+  display: inline-block;
+  border: 1px solid #000;
+  padding: 0 5px;
+  cursor: pointer;
+  z-index: 9999;
+}
+
 .writing {
   text-align: right;
+  margin: 10px 0;
 }
 
 .writing a {
   border: 1px solid #777;
-  padding: 5px 10px;
+  padding: 5px 15px;
 }
 
 .writing_popup {
