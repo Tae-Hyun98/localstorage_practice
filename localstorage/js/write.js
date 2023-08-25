@@ -19,13 +19,17 @@ function register() {
     e.preventDefault();
     //입력된 글
     const valueItem = {
+      id: '',
       title: title.value,
       content: content.value,
       date1: date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
     };
 
+
     //getItem(value)가 null, undefined면 빈배열반환
     const posts = JSON.parse(localStorage.getItem('value')) || [];
+    const newId = posts.length + 1;
+    valueItem.id = newId;
     posts.unshift(valueItem)
 
 

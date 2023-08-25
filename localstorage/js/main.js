@@ -124,18 +124,18 @@ togglePopup();
 
 
 
+//value로컬스토리지 받아와서 값이 있으면 posts변수에 저장 아니면 []값
+let posts = JSON.parse(localStorage.getItem('value')) || [];
+const notiWrite = document.querySelector('.notice_box ul');
+const counting = document.querySelector('.counting');
 
 //로컬스토리지 받은값을 DOM엘리먼트에 추가
 function renderPost() {
-  const counting = document.querySelector('.counting');
-  const notiWrite = document.querySelector('.notice_box ul');
   notiWrite.innerHTML = '';
-
-  //value로컬스토리지 받아와서 값이 있으면 posts변수에 저장 아니면 []값
-  const posts = JSON.parse(localStorage.getItem('value')) || [];
 
   posts.forEach((item, idx) => {
     const Li = document.createElement('li');
+    Li.id = `${item.id}`
     Li.innerHTML = `
     <div>
       <span>${posts.length - idx}</span>
@@ -159,37 +159,55 @@ function renderPost() {
     `
 
     notiWrite.appendChild(Li);
-    Li.addEventListener('click', () => {
-      /* location.href = 'post_detail.html'; */
-    })
 
-    counting.innerHTML = `
+    deleteFilter();
+  });
+  counting.innerHTML = `
     총 게시글수 : ${posts.length}
   `
-
-    //삭제버튼클릭
-    const remove = document.querySelectorAll('.remove_box span');
-    remove.forEach((value, index) => {
-      value.addEventListener('click', () => {
-        remove[index].parentNode.parentNode.remove();
-      })
-    })
-  })
-
-
 }
 
-renderPost();
+renderPost(); //얻어온 localstorage값 뿌리는 함수
 
+
+//선택삭제
+function deleteFilter() {
+  const remove = document.querySelectorAll('.remove_box span');
+  remove.forEach((value, index) => {
+    value.addEventListener('click', (e) => {
+      const removeLi = e.target.parentNode.parentNode;
+      notiWrite.removeChild(removeLi);
+
+      //localstorage에서 얻어온 값에서 선택한 것의 id와 다른 것만 남기고 필터하여 posts에 담음
+      const filterPost = posts.filter(function (post) {
+        return post.id !== parseInt(removeLi.id);
+      });
+
+      posts = filterPost;
+
+      localStorage.setItem('value', JSON.stringify(posts))
+      counting.innerHTML = `
+        총 게시글수 : ${posts.length}
+      `
+      alert('선택한 게시글이 삭제되었습니다.')
+      location.reload();
+    })
+  })
+}
+
+
+//전체삭제
 const clear = document.getElementById('clear');
-if (localStorage.getItem('value') !== null && localStorage.getItem('value') !== undefined) {
+if (localStorage.getItem('value') !== null && localStorage.getItem('value') !== undefined && posts.length !== 0) {
   clear.classList.add('on');
+} else {
+  clear.classList.remove('on')
 }
 
 function clearClick() {
   clear.addEventListener('click', () => {
     //전체삭제버튼 클릭시 localstorage에 값이 없으면 click이벤트없앰 있으면 삭제시키고 새로고침
-    if (localStorage.getItem('value') === null || localStorage.getItem('value') === undefined) {
+    if (localStorage.getItem('value') === null || localStorage.getItem('value') === undefined || posts.length === 0) {
       clear.removeEventListener('click')
     } else {
       localStorage.clear('value');
@@ -199,13 +217,11 @@ function clearClick() {
   })
 }
 clearClick();
+
+
+
+
 //카카오 로그인
-
-
-
-
-
-
 function logoutWithKakao() {
   Kakao.Auth.logout()
     .then(function () {
