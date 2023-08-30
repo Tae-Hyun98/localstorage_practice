@@ -17,7 +17,10 @@
   })
 }
 mobileSide(); */
-
+const loading = document.querySelector('.loading');
+window.onload = function () {
+  loading.style.display = 'none'
+}
 
 const list = document.querySelector('.list ul');
 const listLi = document.querySelectorAll('.list ul li');
