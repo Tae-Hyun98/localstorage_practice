@@ -17,10 +17,13 @@
   })
 }
 mobileSide(); */
-const loading = document.querySelector('.loading');
-window.onload = function () {
-  loading.style.display = 'none'
-}
+
+$(function () {
+  window.onload = function () {
+    $('#header').load('./header.html');
+    $('.loading').fadeOut();
+  }
+})
 
 const list = document.querySelector('.list ul');
 const listLi = document.querySelectorAll('.list ul li');
